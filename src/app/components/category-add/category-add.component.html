@@ -1,0 +1,14 @@
+<mat-card>
+  <div class="container">
+    <h1>Create Category</h1>
+      <form [formGroup]="form" (ngSubmit)="Submit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input formControlName="name" matInput placeholder="Placeholder">
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="accent" type="submit">Create</button>
+        </div>
+      </form>
+  </div>
+</mat-card>
