@@ -1,4 +1,7 @@
-<h1>Welcome to category: {{selectedCategory.name}} </h1>
+<h1>Welcome to category:
+    <!-- show the selected task name -->
+    {{ selectedCategory.name }}
+</h1>
 <!-- show task.name and task.categoryid which task.categoryid == selectedCategory.id at the table -->
 <mat-card style="width: fit-content;">
     <mat-card-content>
@@ -6,11 +9,25 @@
         <tr>
             <th>Task Name</th>
             <th>Category ID</th>
+            <th>Team Members</th>
+            <th>Edit</th>
             <th>Remove</th>
         </tr>
-        <tr *ngFor="let task of filteredTasks ">
+        <tr *ngFor="let task of filteredTasks">
             <td>{{task.name}}</td>
             <td class="text-center" >{{task.categoryId}}</td>
+            <td *ngIf="teamMembers in task else noAvatar">
+                <img [src]="task.teamMembers.avatar" alt="{{ member.name }}" width="64" height="64">
+            </td>
+            <ng-template #noAvatar >
+                <p class="text-center">No Avatar</p>
+            </ng-template>
+            <td>
+                <!-- edit button -->
+                <button mat-mini-fab color="warn" routerLink="/tasks/edit/{{task.id}}">
+                  <mat-icon>edit</mat-icon>
+                  </button>
+                  </td>
             <td>
           <!-- delete button -->
           <button mat-mini-fab color="warn" (click)="delete(task.id)">

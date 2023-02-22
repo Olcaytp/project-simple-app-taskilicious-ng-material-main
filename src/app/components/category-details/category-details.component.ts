@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Category } from 'src/app/category.model';
-import { CategoryService } from 'src/app/Service/category.service';
+import { DataService } from 'src/app/Service/data.service';
 import { Task } from 'src/app/task.model';
 
 @Component({
@@ -19,20 +19,20 @@ export class CategoryDetailsComponent implements OnInit {
   filteredTasks: Task[] = [];
   taskID: any;
 
-  constructor(private categoryService: CategoryService, 
+  constructor(private dataService: DataService, 
     private router: Router,
     private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
     this.categoryid = this.route.snapshot.paramMap.get('id');
-    this.categoryService.getCategories().subscribe((data: any) => {
+    this.dataService.getCategories().subscribe((data: any) => {
       this.categories = data;
       this.selectedCategory = this.categories.find((category: Category) => category.id === this.categoryid);
     });
 
     this.taskID = this.route.snapshot.paramMap.get('id');
-    this.categoryService.getTasks().subscribe((data: any) => {
+    this.dataService.getTasks().subscribe((data: any) => {
       this.tasks = data;
       this.selectedTask = this.tasks.find((task: Task) => task.id === this.taskID);
       this.filteredTasks = this.tasks.filter((task: Task) => task.categoryId === this.categoryid);
@@ -40,7 +40,7 @@ export class CategoryDetailsComponent implements OnInit {
   }
 
 	delete(id: number) {
-		this.categoryService.deleteTask(id).subscribe(data => {
+		this.dataService.deleteTask(id).subscribe(data => {
 			this.router.navigate(['/categories']);
 		})
 	}

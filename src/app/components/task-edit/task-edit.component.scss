@@ -1,0 +1,15 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .example-section {
+    margin: 12px 0;
+  }
+  .member {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 35px;
+  }

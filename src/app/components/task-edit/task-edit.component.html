@@ -1,1 +1,31 @@
-<p>task-edit works!</p>
+<mat-card style="width: fit-content;">
+    <div class="container ">
+      <h1>Edit Task</h1>
+        <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="Submit()">
+          <mat-form-field style="width: fit-content;" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput placeholder="Placeholder">
+          </mat-form-field>
+          <mat-form-field style="width: fit-content;" appearance="fill">
+            <mat-label>Choose a Category</mat-label>
+            <mat-select formControlName="categoryId">
+              <mat-option *ngFor="let category of categories; let i = index" value={{category.id}}> {{category.name}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p style="margin: 35px 20px 0 0;">Choose a Team Member</p>
+      <div class="member">
+        <section class="example-section" *ngFor="let member of members">
+          <mat-checkbox formControlName="teamMemberIds"
+          [value]= [member.id]
+          class="example-margin px-3"
+          ></mat-checkbox>
+          <img [src]="member.avatar" alt="{{ member.name }}" width="64" height="64">
+          <span>{{member.name}}</span>
+        </section>
+      </div>
+      <div style="margin-left: 35px;">
+        <button mat-raised-button color="accent" type="submit">Update</button>
+      </div>
+        </form>
+    </div>
+  </mat-card>

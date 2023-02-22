@@ -15,8 +15,8 @@ const routes: Routes = [
     { path: ':id', component: CategoryDetailsComponent},
     { path: 'edit/:id', component: CategoryEditComponent},
   ]},
-  { path: 'tasks/create', component: TaskCreateComponent},
   { path: 'tasks/edit/:id', component: TaskEditComponent},
+  { path: 'tasks/create', component: TaskCreateComponent},
   { path: '**', redirectTo: 'categories', pathMatch: 'full' }
 ];
 

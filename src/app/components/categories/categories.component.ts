@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/category.model';
-import { CategoryService } from 'src/app/Service/category.service';
+import { DataService } from 'src/app/Service/data.service';
 
 @Component({
   selector: 'app-categories',
@@ -13,21 +13,21 @@ export class CategoriesComponent implements OnInit {
 	categories: Category[] = [];
 	selectedCategory: any;
 
-	constructor(private categoryService: CategoryService, 
+	constructor(private dataService: DataService, 
 		private route: ActivatedRoute, 
 		private router: Router 
 		) { }
 
 	ngOnInit(): void {
-		this.categoryService.getCategories().subscribe((data: any) => {
+		this.dataService.getCategories().subscribe((data: any) => {
 			this.categories = data;
 		});
 	}
 
-	// delete(id: number) {
-	// 	this.categoryService.deleteCategory(id).subscribe(data => {
-	// 		console.log(data);
-	// 		this.router.navigate(['/categories']);
-	// 	})
-	// }
+	delete(id: number) {
+		this.dataService.deleteCategory(id).subscribe(data => {
+			console.log(data);
+			this.router.navigate(['/categories']);
+		})
+	}
 }

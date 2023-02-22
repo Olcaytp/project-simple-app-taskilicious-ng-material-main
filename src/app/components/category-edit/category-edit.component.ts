@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/category.model';
-import { CategoryService } from 'src/app/Service/category.service';
+import { DataService } from 'src/app/Service/data.service';
 
 @Component({
   selector: 'app-category-edit',
@@ -13,15 +13,17 @@ export class CategoryEditComponent implements OnInit {
   enteredName = '';
 	category: Category;
 	form!: FormGroup;
+  member: any;
 
-  constructor(private categoryService: CategoryService, 
+  constructor(private dataService: DataService, 
     private router: Router,
     private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
-    this.categoryService.getCategory(this.route.snapshot.params['id']).subscribe((data: any) => {
+    this.dataService.getCategory(this.route.snapshot.params['id']).subscribe((data: any) => {
       this.category = data;
+      console.log(this.category)
     });
     this.form = new FormGroup({
       name: new FormControl(null, [Validators.required])
@@ -33,7 +35,7 @@ export class CategoryEditComponent implements OnInit {
       return;
     }
 
-    this.categoryService.updateCategory(this.category.id, this.form.value).subscribe(data => {
+    this.dataService.updateCategory(this.category.id, this.form.value).subscribe(data => {
       this.router.navigate(['/']);
     })
     } 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/category.model';
-import { CategoryService } from 'src/app/Service/category.service';
+import { DataService } from 'src/app/Service/data.service';
 
 	@Component({
 	selector: 'app-category-add',
@@ -14,7 +14,7 @@ import { CategoryService } from 'src/app/Service/category.service';
 	category: Category;
 	form!: FormGroup;
 
-	constructor(private categoryService: CategoryService, private router: Router) { }
+	constructor(private dataService: DataService, private router: Router) { }
 
 	ngOnInit(): void {
 	this.form = new FormGroup({
@@ -27,7 +27,7 @@ import { CategoryService } from 'src/app/Service/category.service';
 	if (this.form.invalid) {
 		return;
 	}
-	this.categoryService.createCategory(this.form.value).subscribe(data => {
+	this.dataService.createCategory(this.form.value).subscribe(data => {
 		console.log(data);
 		this.router.navigate(['/']);
 	})

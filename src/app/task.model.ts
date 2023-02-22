@@ -2,9 +2,10 @@ export interface Task {
     id: number;
     categoryId: number;
     name: string;
-    teamMemberIds: {
+    teamMembers: {
         id: number;
         name: string;
         avatar: string;
-    }
+    };
+    teamMemberIds: number[];
 }
