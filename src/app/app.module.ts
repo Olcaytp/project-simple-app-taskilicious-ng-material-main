@@ -8,6 +8,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +19,8 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { CategoryAddComponent } from './components/category-add/category-add.component';
 import { CategoryDetailsComponent } from './components/category-details/category-details.component';
 import { CategoryEditComponent } from './components/category-edit/category-edit.component';
+import { TaskCreateComponent } from './components/task-create/task-create.component';
+import { TaskEditComponent } from './components/task-edit/task-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,9 @@ import { CategoryEditComponent } from './components/category-edit/category-edit.
     CategoryDetailsComponent,
     CategoryAddComponent,
     CategoriesComponent,
-    CategoryEditComponent
+    CategoryEditComponent,
+    TaskCreateComponent,
+    TaskEditComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +45,9 @@ import { CategoryEditComponent } from './components/category-edit/category-edit.
     MatSidenavModule,
     MatIconModule,
     MatFormFieldModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -27,7 +27,7 @@ import { CategoryService } from 'src/app/Service/category.service';
 	if (this.form.invalid) {
 		return;
 	}
-	this.categoryService.create(this.form.value).subscribe(data => {
+	this.categoryService.createCategory(this.form.value).subscribe(data => {
 		console.log(data);
 		this.router.navigate(['/']);
 	})

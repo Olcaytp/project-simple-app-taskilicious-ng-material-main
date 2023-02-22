@@ -1,1 +1,26 @@
-<p>category-details works!</p>
+<h1>Welcome to category: {{selectedCategory.name}} </h1>
+<!-- show task.name and task.categoryid which task.categoryid == selectedCategory.id at the table -->
+<mat-card style="width: fit-content;">
+    <mat-card-content>
+        <table>
+        <tr>
+            <th>Task Name</th>
+            <th>Category ID</th>
+            <th>Remove</th>
+        </tr>
+        <tr *ngFor="let task of filteredTasks ">
+            <td>{{task.name}}</td>
+            <td class="text-center" >{{task.categoryId}}</td>
+            <td>
+          <!-- delete button -->
+          <button mat-mini-fab color="warn" (click)="delete(task.id)">
+            <mat-icon>delete</mat-icon>
+            </button>
+            </td>
+        </tr>
+        </table>
+    </mat-card-content>
+</mat-card>
+<button mat-mini-fab color="accent" routerLink="/tasks/create">
+    <mat-icon>plus_one</mat-icon>
+  </button>

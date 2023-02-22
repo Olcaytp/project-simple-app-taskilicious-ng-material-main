@@ -1,0 +1,20 @@
+<mat-card style="width: fit-content;">
+    <div class="container ">
+      <h1>Create New Task</h1>
+        <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="Submit()">
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput placeholder="Placeholder">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose a Category</mat-label>
+            <mat-select formControlName="categoryId">
+              <mat-option *ngFor="let category of categories; let i = index" value={{category.id}}> {{category.name}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button color="accent" type="submit">Create</button>
+          </div>
+        </form>
+    </div>
+  </mat-card>

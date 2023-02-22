@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/category.model';
 import { CategoryService } from 'src/app/Service/category.service';
 
@@ -14,21 +14,26 @@ export class CategoryEditComponent implements OnInit {
 	category: Category;
 	form!: FormGroup;
 
-  constructor(private categoryService: CategoryService, private router: Router) { }
+  constructor(private categoryService: CategoryService, 
+    private router: Router,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
+    this.categoryService.getCategory(this.route.snapshot.params['id']).subscribe((data: any) => {
+      this.category = data;
+    });
     this.form = new FormGroup({
       name: new FormControl(null, [Validators.required])
     });
-    }
+  }
 
   Submit() {
-    console.log(this.form.value);
     if (this.form.invalid) {
       return;
     }
-    this.categoryService.create(this.form.value).subscribe(data => {
-      console.log(data);
+
+    this.categoryService.updateCategory(this.category.id, this.form.value).subscribe(data => {
       this.router.navigate(['/']);
     })
     } 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/category.model';
 import { CategoryService } from 'src/app/Service/category.service';
 
@@ -9,21 +10,24 @@ import { CategoryService } from 'src/app/Service/category.service';
 })
 export class CategoriesComponent implements OnInit {
 
-  categories: Category[] = [];
+	categories: Category[] = [];
 	selectedCategory: any;
 
-	constructor(private categoryService: CategoryService) { }
+	constructor(private categoryService: CategoryService, 
+		private route: ActivatedRoute, 
+		private router: Router 
+		) { }
 
 	ngOnInit(): void {
-	this.categoryService.getAll().subscribe(data => {
-	  this.categories = data;
-		console.log(this.categories);
-	})
+		this.categoryService.getCategories().subscribe((data: any) => {
+			this.categories = data;
+		});
 	}
 
-	showInfo(category: any) {
-	this.selectedCategory = category;
-	console.log(this.selectedCategory);
-	}
-
+	// delete(id: number) {
+	// 	this.categoryService.deleteCategory(id).subscribe(data => {
+	// 		console.log(data);
+	// 		this.router.navigate(['/categories']);
+	// 	})
+	// }
 }

@@ -1,15 +1,20 @@
-<h1>Welcome to Taskilicious</h1>
-<h2 >Choose a category</h2>
+<div class="container">
+	<h1>Welcome to Taskilicious</h1>
 <mat-nav-list>
-	<mat-list-item *ngFor="let category of categories">
-		<!--<h4 matLine routerLink="/categories/:categoryId">{{ category.name }}</h4>-->
-		<h4 matLine (click)="showInfo(category)">{{ category.name }}
-			<mat-icon routerLink="/edit/:id">edit</mat-icon>
+	<h2 >Choose a category</h2>
+	<mat-list-item *ngFor="let category of categories" >
+		<h4 matLine routerLink="/categories/{{category.id}}" >{{ category.name }}
+			<mat-icon routerLink="/categories/edit/{{category.id}}" >edit</mat-icon>
 		</h4>
-		
+          <!-- delete button -->
+          <!-- <button mat-mini-fab color="warn" (click)="delete(category.id)">
+            <mat-icon>delete</mat-icon>
+            </button> -->
 	</mat-list-item>
-		<!--<a class="btn btn-circle btn-xl" routerLink="/create">+</a>-->
-		<button mat-mini-fab color="accent">
-			<mat-icon>plus_one</mat-icon>
-		  </button>
 	</mat-nav-list>
+	<button mat-mini-fab color="accent" routerLink="/categories/create">
+		<mat-icon>plus_one</mat-icon>
+	  </button>				
+</div>
+
+	<router-outlet></router-outlet>
