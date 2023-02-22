@@ -40,6 +40,7 @@ export class CategoryService {
   }
 
   updateCategory(id: any, data: any): Observable<any> {
+    data.id = id;
     return this.http.put(`${baseUrl}/${id}`, data);
   }
 
