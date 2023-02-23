@@ -34,12 +34,9 @@ export class TaskCreateComponent implements OnInit {
 	ngOnInit(): void {
 		this.dataService.getCategories().subscribe((data: any) => {
 			this.categories = data;
-			console.log(this.categories)
 		});
 		this.dataService.getMembers().subscribe((data: any) => {
 			this.members = data;
-			console.log("members")
-			console.log(this.members)
 		});
 
 		this.form = new FormGroup({
@@ -50,7 +47,6 @@ export class TaskCreateComponent implements OnInit {
 
 	addTeamMember(member: any, isChecked: boolean) {
 		if(isChecked) {
-		console.log("memberId")
 		this.teamMemberIds.push(member.id);
 		this.teamMembers.push(member);
 	} else {
@@ -58,8 +54,6 @@ export class TaskCreateComponent implements OnInit {
 		this.teamMemberIds.splice(index, 1);
 		this.teamMembers.splice(index, 1);
 	}
-	console.log(this.teamMemberIds)
-	console.log(this.teamMembers)
 	}
 
 	 //selectFile(event) { //Angular 8
@@ -88,7 +82,6 @@ export class TaskCreateComponent implements OnInit {
 		}
 
 		this.dataService.uploadPhoto(this.url).subscribe((data: any) => {
-			console.log(data);
 			this.form.patchValue({
 				photo: data.file
 			});

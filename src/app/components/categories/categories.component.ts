@@ -57,7 +57,6 @@ export class CategoriesComponent implements OnInit {
 
 	delete(id: number) {
 		this.dataService.deleteCategory(id).subscribe(data => {
-			console.log(data);
 			this.router.navigate(['/categories']);
 		})
 	}

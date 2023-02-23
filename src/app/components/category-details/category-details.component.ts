@@ -13,9 +13,9 @@ export class CategoryDetailsComponent implements OnInit {
   categories: Category[] = [];
 	selectedCategory: any;
   categoryid: any;
+  
 
   tasks: Task[] = [];
-  selectedTask: any;
   filteredTasks: Task[] = [];
   taskID: any;
   
@@ -35,13 +35,7 @@ export class CategoryDetailsComponent implements OnInit {
     this.taskID = this.route.snapshot.paramMap.get('id');
     this.dataService.getTasks().subscribe((data: any) => {
       this.tasks = data;
-      this.selectedTask = this.tasks.find((task: Task) => task.id === this.taskID);
       this.filteredTasks = this.tasks.filter((task: Task) => task.categoryId === this.categoryid);
-      console.log("filtered tasks")
-      console.log(this.filteredTasks);
-      console.log("task.teamMembers");
-      console.log(this.filteredTasks[0].teamMembers[0].avatar);
-
     });
   }
 

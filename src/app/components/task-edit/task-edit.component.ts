@@ -16,7 +16,6 @@ export class TaskEditComponent implements OnInit {
   category: Category;
   form!: FormGroup;
   id: any;
-  selectedTaskCategoryName: any;
 
   categories: Category[] = [];
   categoryid: number;
@@ -29,6 +28,7 @@ export class TaskEditComponent implements OnInit {
   members: Member[] = [];
   teamMemberIds: string[] = [];
   teamMembers: string[] = [];
+  
 
   constructor(private dataService: DataService,
     private router: Router,
@@ -39,15 +39,10 @@ export class TaskEditComponent implements OnInit {
       name: new FormControl(null, [Validators.required]),
       categoryId: new FormControl(null, [Validators.required])
     });
-    
-    this.categoryid = +this.route.snapshot.paramMap.get('id');
-    console.log("categoryid", this.categoryid)
-
 
     this.dataService.getCategories().subscribe((data: any) => {
       this.categories = data;
     });
-
 
 
     this.taskID = this.route.snapshot.paramMap.get('id');
@@ -64,7 +59,6 @@ export class TaskEditComponent implements OnInit {
 
   updateTeamMember(member: any, isChecked: boolean) {
     if (isChecked) {
-      console.log("memberId")
       this.teamMemberIds.push(member.id);
       this.teamMembers.push(member);
     } else {
@@ -72,8 +66,6 @@ export class TaskEditComponent implements OnInit {
       this.teamMemberIds.splice(index, 1);
       this.teamMembers.splice(index, 1);
     }
-    console.log(this.teamMemberIds)
-    console.log(this.teamMembers)
   }
 
   Submit() {

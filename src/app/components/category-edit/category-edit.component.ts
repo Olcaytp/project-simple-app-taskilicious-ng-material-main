@@ -23,7 +23,6 @@ export class CategoryEditComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.getCategory(this.route.snapshot.params['id']).subscribe((data: any) => {
       this.category = data;
-      console.log(this.category)
     });
     
     this.form = new FormGroup({

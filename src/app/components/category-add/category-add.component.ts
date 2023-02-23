@@ -23,12 +23,10 @@ import { DataService } from 'src/app/Service/data.service';
 	}
 
 	Submit() {
-	console.log(this.form.value);
 	if (this.form.invalid) {
 		return;
 	}
 	this.dataService.createCategory(this.form.value).subscribe(data => {
-		console.log(data);
 		this.router.navigate(['/']);
 	})
 	} 
