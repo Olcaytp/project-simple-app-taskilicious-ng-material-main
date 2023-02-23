@@ -13,6 +13,9 @@ export class CategoriesComponent implements OnInit {
 	categories: Category[] = [];
 	selectedCategory: any;
 
+	value = "";
+
+
 	constructor(private dataService: DataService, 
 		private route: ActivatedRoute, 
 		private router: Router 
@@ -22,6 +25,34 @@ export class CategoriesComponent implements OnInit {
 		this.dataService.getCategories().subscribe((data: any) => {
 			this.categories = data;
 		});
+	}
+
+	ascSort() {
+		//make categories names first letter uppercase
+		this.categories.forEach(category => {
+			category.name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
+		});
+
+		let sortedCategories = this.categories.sort((a, b) => a.name.localeCompare(b.name));
+		this.categories = sortedCategories;
+	}
+
+	descSort() {
+		//make categories names first letter uppercase
+		this.categories.forEach(category => {
+			category.name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
+		});
+		//sort categories descending by name
+		let descSortedCategories =  this.categories.sort((a, b) => {
+			if (a.name > b.name) {
+				return -1;
+			}
+			if (a.name < b.name) {
+				return 1;
+			}
+			return 0;
+		});
+		this.categories = descSortedCategories;
 	}
 
 	delete(id: number) {

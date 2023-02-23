@@ -2,14 +2,21 @@
 	<h1>Welcome to Taskilicious</h1>
 <mat-nav-list>
 	<h2 >Choose a category</h2>
+		<mat-form-field appearance="fill">
+			<mat-label>Select</mat-label>
+			<mat-select>
+			  <mat-option  value="one" (click)="ascSort()" >A-Z</mat-option>
+			  <mat-option  value="two" (click)="descSort()">Z-A</mat-option>
+			</mat-select>
+		  </mat-form-field>
 	<mat-list-item *ngFor="let category of categories" >
 		<h4 matLine routerLink="/categories/{{category.id}}" >{{ category.name }}
 			<mat-icon routerLink="/categories/edit/{{category.id}}" >edit</mat-icon>
 		</h4>
-          <!-- delete button -->
-          <button mat-mini-fab color="warn" (click)="delete(category.id)">
-            <mat-icon>delete</mat-icon>
-            </button>
+		  <!-- delete button -->
+		  <button mat-mini-fab color="warn" (click)="delete(category.id)">
+			<mat-icon>delete</mat-icon>
+			</button>
 	</mat-list-item>
 	</mat-nav-list>
 	<button mat-mini-fab color="accent" routerLink="/categories/create">
