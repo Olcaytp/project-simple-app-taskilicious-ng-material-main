@@ -20,9 +20,11 @@ export class TaskCreateComponent implements OnInit {
 	categoryid: any;
 
 	members: Member[] = [];
-	selectedMember: Member;
-	teamMemberIds: number[] = [];
-	member: any;
+	teamMemberIds: string[] = [];
+	teamMembers: string[] = [];
+
+	url: any; //Angular 11, for stricter type
+	msg = "";
 
 	constructor(private dataService: DataService,
 		private router: Router,
@@ -36,18 +38,60 @@ export class TaskCreateComponent implements OnInit {
 		});
 		this.dataService.getMembers().subscribe((data: any) => {
 			this.members = data;
+			console.log("members")
 			console.log(this.members)
-		});
-		//not working
-		this.dataService.getMember(this.route.snapshot.params['id']).subscribe((data: any) => {
-			this.member = data;
-			console.log(this.member)
 		});
 
 		this.form = new FormGroup({
 			name: new FormControl(null, [Validators.required]),
-			categoryId: new FormControl(null, [Validators.required]),
-			teamMemberIds: new FormControl(null, [Validators.required]),
+			categoryId: new FormControl(null, [Validators.required])
+		});
+	}
+
+	addTeamMember(member: any, isChecked: boolean) {
+		if(isChecked) {
+		console.log("memberId")
+		this.teamMemberIds.push(member.id);
+		this.teamMembers.push(member);
+	} else {
+		let index = this.teamMemberIds.indexOf(member.id);
+		this.teamMemberIds.splice(index, 1);
+		this.teamMembers.splice(index, 1);
+	}
+	console.log(this.teamMemberIds)
+	console.log(this.teamMembers)
+	}
+
+	 //selectFile(event) { //Angular 8
+	selectFile(event: any) { //Angular 11, for stricter type
+		if(!event.target.files[0] || event.target.files[0].length == 0) {
+			this.msg = 'You must select an image';
+			return;
+		}
+		
+		
+		var mimeType = event.target.files[0].type;
+		
+		if (mimeType.match(/image\/*/) == null) {
+			this.msg = "Only images are supported";
+			return;
+		}
+
+		
+		
+		var reader = new FileReader();
+		reader.readAsDataURL(event.target.files[0]);
+		
+		reader.onload = (_event) => {
+			this.msg = "";
+			this.url = reader.result; 
+		}
+
+		this.dataService.uploadPhoto(this.url).subscribe((data: any) => {
+			console.log(data);
+			this.form.patchValue({
+				photo: data.file
+			});
 		});
 	}
 
@@ -55,7 +99,7 @@ export class TaskCreateComponent implements OnInit {
 		if (this.form.invalid) {
 			return;
 		}
-		this.dataService.createTask(this.form.value).subscribe(data => {
+		this.dataService.createTask( this.teamMembers, this.teamMemberIds, this.form.value).subscribe(data => {
 			this.router.navigate(['categories', this.form.value.categoryId]);
 		})
 	}

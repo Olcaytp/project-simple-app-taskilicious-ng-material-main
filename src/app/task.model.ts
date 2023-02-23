@@ -7,5 +7,5 @@ export interface Task {
         name: string;
         avatar: string;
     };
-    teamMemberIds: number[];
+    teamMemberIds: string[];
 }

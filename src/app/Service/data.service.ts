@@ -11,12 +11,13 @@ const taskUrl = 'https://63761992b5f0e1eb850298da.mockapi.io/tasks';
 
 const memberUrl = 'https://63761992b5f0e1eb850298da.mockapi.io/team-members';
 
-const photoUploadUrl = 'https://upload.uploadcare.com/base/';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+
+  photoUploadUrl = 'https://upload.uploadcare.com/base/';
 
   constructor(private http: HttpClient) { }
 
@@ -48,11 +49,14 @@ export class DataService {
     return this.http.post(baseUrl, data);
   }
 
-  createTask(data: any): Observable<any> {
+  createTask(teamMembers: string[], teamMemberIds: string[], data: any): Observable<any> {
+    data.teamMemberIds = teamMemberIds;
+    data.teamMembers = teamMembers;
     return this.http.post(taskUrl, data);
   }
 
-  crateMember(data: any): Observable<any> {
+  crateMember(teamMembers: [], data: any): Observable<any> {
+    data.teamMembers = teamMembers;
     return this.http.post(memberUrl, data);
   }
 
@@ -61,7 +65,9 @@ export class DataService {
     return this.http.put(`${baseUrl}/${id}`, data);
   }
 
-  updateTask(id: any, data: any): Observable<any> {
+  updateTask(id: number, teamMembers: string[], teamMemberIds: string[], data: any): Observable<any> {
+    data.teamMemberIds = teamMemberIds;
+    data.teamMembers = teamMembers;
     return this.http.put(`${taskUrl}/${id}`, data);
   }
 
@@ -81,21 +87,16 @@ export class DataService {
     return this.http.delete(`${memberUrl}/${id}`);
   }
 
-  upload(file: File): Observable<HttpEvent<any>> {
+  uploadPhoto(file: File): Observable<any> {
     const formData: FormData = new FormData();
-
+    
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${photoUploadUrl}/upload`, formData, {
+    return this.http.post<any>(this.photoUploadUrl, formData, {
       reportProgress: true,
-      responseType: 'json'
+      observe: 'events'
     });
-
-    return this.http.request(req);
-  }
-
-  getFiles(): Observable<any> {
-    return this.http.get(`${photoUploadUrl}/files`);
+    
   }
 
 

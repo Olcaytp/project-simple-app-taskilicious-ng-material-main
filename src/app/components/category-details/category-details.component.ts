@@ -18,6 +18,7 @@ export class CategoryDetailsComponent implements OnInit {
   selectedTask: any;
   filteredTasks: Task[] = [];
   taskID: any;
+  
 
   constructor(private dataService: DataService, 
     private router: Router,
@@ -36,6 +37,11 @@ export class CategoryDetailsComponent implements OnInit {
       this.tasks = data;
       this.selectedTask = this.tasks.find((task: Task) => task.id === this.taskID);
       this.filteredTasks = this.tasks.filter((task: Task) => task.categoryId === this.categoryid);
+      console.log("filtered tasks")
+      console.log(this.filteredTasks);
+      console.log("task.teamMembers");
+      console.log(this.filteredTasks[0].teamMembers[0].avatar);
+
     });
   }
 

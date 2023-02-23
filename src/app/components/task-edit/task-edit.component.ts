@@ -16,10 +16,10 @@ export class TaskEditComponent implements OnInit {
   category: Category;
   form!: FormGroup;
   id: any;
+  selectedTaskCategoryName: any;
 
   categories: Category[] = [];
-  selectedCategory: any;
-  categoryid: any;
+  categoryid: number;
 
   tasks: Task[] = [];
   selectedTask: any;
@@ -27,9 +27,8 @@ export class TaskEditComponent implements OnInit {
   taskID: any;
 
   members: Member[] = [];
-	selectedMember: Member;
-	teamMemberIds: number[] = [];
-	member: any;
+  teamMemberIds: string[] = [];
+  teamMembers: string[] = [];
 
   constructor(private dataService: DataService,
     private router: Router,
@@ -40,12 +39,16 @@ export class TaskEditComponent implements OnInit {
       name: new FormControl(null, [Validators.required]),
       categoryId: new FormControl(null, [Validators.required])
     });
+    
+    this.categoryid = +this.route.snapshot.paramMap.get('id');
+    console.log("categoryid", this.categoryid)
 
-    this.categoryid = this.route.snapshot.paramMap.get('id');
+
     this.dataService.getCategories().subscribe((data: any) => {
       this.categories = data;
-      this.selectedCategory = this.categories.find((category: Category) => category.id === this.categoryid);
     });
+
+
 
     this.taskID = this.route.snapshot.paramMap.get('id');
     this.dataService.getTasks().subscribe((data: any) => {
@@ -54,22 +57,31 @@ export class TaskEditComponent implements OnInit {
       this.filteredTasks = this.tasks.filter((task: Task) => task.categoryId === this.categoryid);
     });
 
-		this.dataService.getMembers().subscribe((data: any) => {
-			this.members = data;
-			console.log(this.members)
+    this.dataService.getMembers().subscribe((data: any) => {
+      this.members = data;
     });
+  }
 
-    this.dataService.getMember(this.route.snapshot.params['id']).subscribe((data: any) => {
-      this.member = data;
-      console.log(this.member)
-    });
+  updateTeamMember(member: any, isChecked: boolean) {
+    if (isChecked) {
+      console.log("memberId")
+      this.teamMemberIds.push(member.id);
+      this.teamMembers.push(member);
+    } else {
+      let index = this.teamMemberIds.indexOf(member.id);
+      this.teamMemberIds.splice(index, 1);
+      this.teamMembers.splice(index, 1);
+    }
+    console.log(this.teamMemberIds)
+    console.log(this.teamMembers)
   }
 
   Submit() {
     if (this.form.invalid) {
       return;
     }
-    this.dataService.updateTask(this.selectedTask.id, this.form.value).subscribe(data => {
+    this.dataService.updateTask(this.selectedTask.id, this.teamMembers, this.teamMemberIds, this.form.value)
+    .subscribe(data => {
       this.router.navigate(['categories', this.form.value.categoryId]);
     })
   }

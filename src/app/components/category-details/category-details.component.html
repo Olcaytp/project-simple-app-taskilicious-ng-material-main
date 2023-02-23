@@ -6,38 +6,39 @@
 <mat-card style="width: fit-content;">
     <mat-card-content>
         <table>
-        <tr>
-            <th>Task Name</th>
-            <th>Category ID</th>
-            <th>Team Members</th>
-            <th>Edit</th>
-            <th>Remove</th>
-        </tr>
-        <tr *ngFor="let task of filteredTasks">
-            <td>{{task.name}}</td>
-            <td class="text-center" >{{task.categoryId}}</td>
-            <td *ngIf="teamMembers in task else noAvatar">
-                <img [src]="task.teamMembers.avatar" alt="{{ member.name }}" width="64" height="64">
-            </td>
-            <ng-template #noAvatar >
-                <p class="text-center">No Avatar</p>
-            </ng-template>
-            <td>
-                <!-- edit button -->
-                <button mat-mini-fab color="warn" routerLink="/tasks/edit/{{task.id}}">
-                  <mat-icon>edit</mat-icon>
-                  </button>
-                  </td>
-            <td>
-          <!-- delete button -->
-          <button mat-mini-fab color="warn" (click)="delete(task.id)">
-            <mat-icon>delete</mat-icon>
-            </button>
-            </td>
-        </tr>
+            <tr>
+                <th>Task Name</th>
+                <th>Category ID</th>
+                <th>Team Members</th>
+                <th>Edit</th>
+                <th>Remove</th>
+            </tr>
+            <tr *ngFor="let task of filteredTasks">
+                <td>{{task.name}}</td>
+                <td class="text-center">{{task.categoryId}}</td>
+                <table>
+                    <tr>
+                        <td  *ngFor="let member of task.teamMembers">
+                            <img class="td-avatar" src="{{member.avatar}}">
+                        </td>
+                    </tr>
+                </table>
+                <td>
+                    <!-- edit button -->
+                    <button mat-mini-fab color="warn" routerLink="/tasks/edit/{{task.id}}">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
+                <td>
+                    <!-- delete button -->
+                    <button mat-mini-fab color="warn" (click)="delete(task.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
         </table>
     </mat-card-content>
 </mat-card>
 <button mat-mini-fab color="accent" routerLink="/tasks/create">
     <mat-icon>plus_one</mat-icon>
-  </button>
+</button>

@@ -1,7 +1,7 @@
 <mat-card style="width: fit-content; margin: 35px;">
   <div class="container">
     <h1>Create New Task</h1>
-    <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="Submit()" enctype="multipart/form-data">
+    <form [formGroup]="form" class="d-flex flex-column" (ngSubmit)="Submit()">
       <mat-form-field style="width: fit-content;" appearance="fill">
         <mat-label>Name</mat-label>
         <input formControlName="name" matInput placeholder="Placeholder">
@@ -16,19 +16,21 @@
       <p style="margin: 35px 20px 0 0;">Choose a Team Member</p>
       <div class="member">
         <section class="example-section" *ngFor="let member of members">
-          <mat-checkbox formControlName="teamMemberIds"
-          [value]= [member.id]
+          <mat-checkbox
           class="example-margin px-3"
+          (change)="addTeamMember(member, $event.checked)" 
           ></mat-checkbox>
           <!-- angular-material picture from members avatar -->
           <img [src]="member.avatar" alt="{{ member.name }}" width="64" height="64">
           <span>{{member.name}}</span>
         </section>
       </div>
-      <div style="margin-bottom: 20px;">
-        <input type="file" name="photo">
-      </div>
-      <div style="margin-left: 35px;">
+        <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+        <p >
+          <img [src]="url" *ngIf="url" style="height: 64px; width: 64px; padding-right: 5px;">
+          <input type="file" (change)="selectFile($event)" style="vertical-align: bottom;">
+        </p>
+      <div>
         <button mat-raised-button color="accent" type="submit">Create</button>
       </div>
     </form>

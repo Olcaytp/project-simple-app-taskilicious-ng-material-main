@@ -4,7 +4,7 @@
         <form [formGroup]="form" (ngSubmit)="Submit()">
           <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
-            <input formControlName="name" matInput placeholder="Placeholder">
+            <input formControlName="name" matInput placeholder="Placeholder"> {{category.name}}
           </mat-form-field>
           <div>
             <button mat-raised-button color="primary" type="submit">Submit</button>
