@@ -1,16 +1,16 @@
 # This is Lowgular Angular Test Assesment
 <img
-  src="\assets\List.png"
+  src="./assets/List"
   alt="simpleapp"
   title="Optional title"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
   <img
-  src="\assets\Details.png"
+  src="./assets/Details"
   alt="simpleapp"
   title="Optional title"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
   <img
-  src="\assets\Edit.png"
+  src="./assets/Edit"
   alt="simpleapp"
   title="Optional title"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
