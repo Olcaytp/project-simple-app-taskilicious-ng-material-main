@@ -1,16 +1,16 @@
 # This is Lowgular Angular Test Assesment
 <img
-  src="project-simple-app-taskilicious-ng-material-main/src/assets/List.png"
+  src="src\assets\List.png"
   alt="simpleapp"
   title="Optional title"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
   <img
-  src="project-simple-app-taskilicious-ng-material-main/src/assets/Details.png"
+  src="src\assets\Details.png"
   alt="simpleapp"
   title="Optional title"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
   <img
-  src="project-simple-app-taskilicious-ng-material-main/src/assets/Edit.png"
+  src="src\assets\Edit.png"
   alt="simpleapp"
   title="Optional title"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
